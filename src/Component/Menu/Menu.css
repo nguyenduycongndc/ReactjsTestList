@@ -1,0 +1,19 @@
+.Icon{
+    cursor: pointer; 
+    text-align: center;
+    color: white;
+}
+.Icon:hover{
+    color: greenyellow;
+}
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .AnimatedIcon {
+    &:hover {
+        opacity: 1;
+        animation: bounce 0.5s ease-in-out infinite;
+      }
+  }

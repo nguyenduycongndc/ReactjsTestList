@@ -1,21 +1,21 @@
-import logo from './logo.svg';
-import Home from './Component/Home/Home';
 import React from 'react';
+// import Menu from './Component/Menu/Menu';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import BaseSingle from './Component/BaseSingle/BaseSingle';
 
 class App extends React.Component {
-  constructor(props){
-    super(props);
- 
-  }
-
   render() {
     return (
-      <div>
-        <Home />
-      </div>
-
+      <>
+        <BaseSingle />
+        {/* <Menu/> */}
+        <div className="App">
+        </div>
+      </>
     );
   }
 }
 
 export default App;
+

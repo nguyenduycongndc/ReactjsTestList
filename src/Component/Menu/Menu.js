@@ -1,47 +1,58 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import { AiFillBug } from "react-icons/ai";
+import { Link, useLocation } from 'react-router-dom';
+import OffcanvasMenu from 'react-offcanvas-menu-component';
+import { FaEarlybirds } from 'react-icons/fa';
+import './Menu.css';
 
 function Menu() {
+  const location = useLocation();
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false); // Add state for submenu
+
+  const menuItems = [
+    { text: 'Home', link: '/home' },
+    {
+      text: 'Page',
+      submenu: [{ text: 'List', link: '/list' }],
+    },
+    { text: 'RegisterForm', link: '/register' },
+  ];
+  const handleSubMenuToggle = () => {
+    setIsSubMenuOpen(!isSubMenuOpen);
+  };
+
   return (
-    <>
-      <Navbar expand={false} className="bg-body-tertiary mb-3">
-        <Container fluid>
-          <Navbar.Toggle />
-          <Navbar.Offcanvas
-            placement="start"
-          >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title >
-                <Nav.Link href="/"><AiFillBug /></Nav.Link>
-              </Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="/register">Register</Nav.Link>
-                <NavDropdown
-                  title="Dropdown"
-                >
-                  <NavDropdown.Item href="/register">Register</NavDropdown.Item>
-                  <NavDropdown.Item href="list">List</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#">
-                    Something else here
-                  </NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-            </Offcanvas.Body>
-          </Navbar.Offcanvas>
-        </Container>
-      </Navbar>
-    </>
+    <div>
+      <OffcanvasMenu
+        Link={Link}
+        location={location}
+        config={{
+          push: false,
+        }}
+        menu={menuItems.map((item, index) => ({
+          ...item,
+          onClick: item.submenu ? handleSubMenuToggle : undefined,
+          isOpen: item.text === 'Page' ? isSubMenuOpen : undefined,
+        }))}
+        header={
+          <div style={{ width: '100%', textAlign: 'center' }}>
+            <Link className="Icon" to="/">
+              <FaEarlybirds className="AnimatedIcon" size="50px" />
+            </Link>
+          </div>
+        }
+        footer={<Footer />}
+      />
+    </div>
+  );
+}
+
+const Footer = () => {
+  return (
+    <div className="social-wrap">
+      <h4>Social Networks Footer</h4>
+      <ul className="social">
+      </ul>
+    </div>
   );
 }
 
